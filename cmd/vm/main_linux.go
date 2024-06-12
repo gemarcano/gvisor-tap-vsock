@@ -151,6 +151,15 @@ func dhcp() error {
 		cmd.Stdout = os.Stdout
 		return cmd.Run()
 	}
+	if _, err := exec.LookPath("dhcpcd"); err == nil {
+		cmd := exec.Command("dhcpcd", "-B", "-4", iface)
+		cmd.Stderr = os.Stderr
+		cmd.Stdout = os.Stdout
+		return cmd.Run()
+	}
+	if _, err := exec.LookPath("dhcpcd"); err == nil {
+
+	}
 	cmd := exec.Command("dhclient", "-4", "-d", "-v", iface)
 	cmd.Stderr = os.Stderr
 	cmd.Stdout = os.Stdout
